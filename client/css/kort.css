@@ -1,0 +1,29 @@
+.kortliste ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.kort {
+    background-color: white;
+    margin-bottom: 10px;
+    max-width: 800px;
+}
+
+.kort:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background: #dadada;
+    cursor: pointer;
+}
+
+.kort .kort-innhold {
+    padding: 20px 30px 5px;
+}
+
+.info-blokk {
+    line-height: 200%;
+}
+
+body {
+    background-color: #e6e6e6;
+}
