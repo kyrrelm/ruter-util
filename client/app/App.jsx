@@ -48,7 +48,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const columns = this.state.directions.map((direction) => <div><h1>{direction.directionName}</h1>{makeCardList(direction.departures)}</div>);
+    const columns = this.state.directions.map((direction) => <div className="card-list-column"><h1>{direction.directionName}</h1>{makeCardList(direction.departures)}</div>);
     return (
       <div className="card-list">
         {columns}

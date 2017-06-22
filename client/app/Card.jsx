@@ -19,7 +19,7 @@ class Card extends React.Component {
     return (
       <li className = "card">
         <div className = "card-content">
-          <h2><b>{departure.line + ' ' + departure.destination}</b></h2>
+          <h2>{departure.line + ' ' + departure.destination}</h2>
           <p>{displayTime}</p>
         </div>
       </li>
