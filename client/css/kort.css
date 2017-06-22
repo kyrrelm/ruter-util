@@ -1,4 +1,4 @@
-.kortliste {
+.card-list {
     display: flex;
     flex-wrap: nowrap;
     margin: 0 -10px;
@@ -8,7 +8,7 @@ h1 {
     text-align: center;
 }
 
-.kortliste ul {
+.card-list ul {
     flex-grow: 1;
     max-width: 400px;
     min-width: 200px;
@@ -17,24 +17,21 @@ h1 {
     list-style-type: none;
 }
 
-.kort {
+.card {
     background-color: white;
     margin-bottom: 10px;
 }
 
-.kort:hover {
+.card:hover {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     background: #dadada;
     cursor: pointer;
 }
 
-.kort .kort-innhold {
+.card .card-content {
     padding: 20px 30px 5px;
 }
 
-.info-blokk {
-    line-height: 200%;
-}
 
 body {
     background-color: #e6e6e6;

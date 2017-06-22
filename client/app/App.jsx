@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './app/Card.jsx';
+import Card from './Card.jsx';
 import  moment from 'moment';
 
 export default class App extends React.Component {
@@ -48,19 +48,19 @@ export default class App extends React.Component {
   }
 
   render() {
-    const columns = this.state.directions.map((direction) => <div><h1>{direction.directionName}</h1><ul>{makeCards(direction.departures)}</ul></div>);
+    const columns = this.state.directions.map((direction) => <div><h1>{direction.directionName}</h1>{makeCardList(direction.departures)}</div>);
     return (
-      <div className="kortliste">
+      <div className="card-list">
         {columns}
       </div>
     );
   }
 }
 
-const makeCards = (departures) => {
-  return departures.map(departure =>
+const makeCardList = (departures) => {
+  return <ul>{departures.map(departure =>
       <Card key={departure.departureTime} departure={departure}/>
-  );
+  )}</ul>;
 };
 
 const mapdeparture = (departure) => {
