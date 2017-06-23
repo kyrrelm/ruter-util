@@ -15,7 +15,7 @@ class Card extends React.Component {
     const departure = this.props.departure;
     //const delay = departure.expectedDepartureTime.to(departure.aimedDepartureTime, true);
     const expectedTime = formatTime(departure.expectedDepartureTime);
-    const shouldCollapse = !(departure.expectedDepartureTime.diff(moment()) > 0);
+    const shouldCollapse = !(departure.expectedDepartureTime.diff(moment()) > -60000);
     const classSelected = shouldCollapse ? 'card card-collapse' : 'card';
     return (
         <li className = {classSelected}>

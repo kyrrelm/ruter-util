@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card.jsx';
 import  moment from 'moment';
+import queryString from 'query-string';
 
 export default class App extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
+    console.log("query", queryString.parse(location.search));
     setInterval(this.fetchdepartures, 10000000);
   }
 
@@ -25,7 +27,9 @@ export default class App extends React.Component {
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010020") //stortinget
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010200") //majorstuen
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012280") //sognsvann
-    fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3011450") //brynseng
+    fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010012") //jernbanetorget (B.Gunnerus g.)
+    //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012500") //skøyen tog
+    //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3011450") //brynseng
         .then((res) => res.json())
         .then((body) => body.map((departure) => mapDeparture(departure)))
         .then((departures) => this.handleNewDepartures(departures));
@@ -60,7 +64,7 @@ const mapDeparture = (departure) => {
   return {
     platformName: departure.MonitoredVehicleJourney.MonitoredCall.DeparturePlatformName,
     line: departure.MonitoredVehicleJourney.PublishedLineName,
-    destination: departure.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay,
+    destination: departure.MonitoredVehicleJourney.DestinationName,//MonitoredCall.DestinationDisplay,
     aimedDepartureTime: moment(departure.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime),
     expectedDepartureTime: moment(departure.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime),
   };
