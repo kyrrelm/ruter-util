@@ -58,6 +58,16 @@ ul {
 .card {
     background-color: #4b4b4b;
     margin-bottom: 5px;
+    max-height: 150px;
+}
+
+.card-collapse {
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+    transition: max-height 1000ms ease-in, margin-bottom 200ms 1000ms;
+    /*-webkit-transition: height 3000ms 3000ms ease-in;*/
+    /*-webkit-transition: margin-bottom 3000ms 0ms;*/
 }
 
 .card .card-content {

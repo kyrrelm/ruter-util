@@ -14,7 +14,7 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    setInterval(this.fetchdepartures, 100000);
+    setInterval(this.fetchdepartures, 10000000);
   }
 
   fetchdepartures() {

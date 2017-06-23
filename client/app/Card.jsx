@@ -4,7 +4,7 @@ import moment from 'moment';
 
 class Card extends React.Component {
   componentDidMount() {
-    this.updateTime = setInterval(() => this.forceUpdate() , 10000);
+    this.updateTime = setInterval(() => this.forceUpdate() , 1000);
   }
 
   componentWillUnmount() {
@@ -15,13 +15,15 @@ class Card extends React.Component {
     const departure = this.props.departure;
     //const delay = departure.expectedDepartureTime.to(departure.aimedDepartureTime, true);
     const expectedTime = formatTime(departure.expectedDepartureTime);
+    const shouldCollapse = !(departure.expectedDepartureTime.diff(moment()) > 0);
+    const classSelected = shouldCollapse ? 'card card-collapse' : 'card';
     return (
-      <li className = "card">
-        <div className = "card-content">
-          <h3>{departure.line + ' ' + departure.destination}</h3>
-          <p>{expectedTime}</p>
-        </div>
-      </li>
+        <li className = {classSelected}>
+          <div className = "card-content">
+            <h3>{departure.line + ' ' + departure.destination}</h3>
+            <p>{expectedTime}</p>
+          </div>
+        </li>
     )
   }
 }
