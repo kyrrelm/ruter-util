@@ -37,11 +37,15 @@ export default class App extends React.Component {
   }
 
   render() {
-    const columns = this.state.directions.map((direction) => <div className="card-list-column"><h1>{direction.directionName}</h1>{makeCardList(direction.departures)}</div>);
+    const columns = this.state.directions.map((direction) => <div className="card-list-column"><h2>{direction.directionName}</h2>{makeCardList(direction.departures)}</div>);
     return (
-      <div className="card-list">
-        {columns}
+    <div className="container">
+      <div className="content">
+        <div className="card-list">
+          {columns}
+        </div>
       </div>
+    </div>
     );
   }
 }
@@ -63,11 +67,15 @@ const mapDeparture = (departure) => {
 };
 
 const splitInDirections = (departures) => {
-  const firstDirection = departures[0].direction;
-  const secondDirection = departures.find((departure) => departure.direction !== firstDirection).direction;
   const directions = [];
+  const firstDirection = departures[0].direction;
   directions.push({directionName: firstDirection, departures: departures.filter((departure) => departure.direction === firstDirection)});
-  directions.push({directionName: secondDirection, departures: departures.filter((departure) => departure.direction === secondDirection)});
+
+  const different = departures.find((departure) => departure.direction !== firstDirection);
+  if (different) {
+    const secondDirection = different.direction;
+    directions.push({directionName: secondDirection, departures: departures.filter((departure) => departure.direction === secondDirection)});
+  }
   return directions;
 };
 

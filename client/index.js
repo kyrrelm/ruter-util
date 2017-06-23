@@ -1,4 +1,4 @@
-import './css/kort.css';
+import './css/main.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app/App.jsx';

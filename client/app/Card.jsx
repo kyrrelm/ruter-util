@@ -4,7 +4,11 @@ import moment from 'moment';
 
 class Card extends React.Component {
   componentDidMount() {
-    setInterval(() => this.forceUpdate() , 10000);
+    this.updateTime = setInterval(() => this.forceUpdate() , 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.updateTime);
   }
 
   render() {
@@ -14,7 +18,7 @@ class Card extends React.Component {
     return (
       <li className = "card">
         <div className = "card-content">
-          <h2>{departure.line + ' ' + departure.destination}</h2>
+          <h3>{departure.line + ' ' + departure.destination}</h3>
           <p>{expectedTime}</p>
         </div>
       </li>
