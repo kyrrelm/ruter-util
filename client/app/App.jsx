@@ -9,9 +9,12 @@ export default class App extends React.Component {
       directions: [],
     };
     this.fetchdepartures = this.fetchdepartures.bind(this);
-    this.assignDepartures = this.assignDepartures.bind(this);
-    this.addDeparturesToState = this.addDeparturesToState.bind(this);
+    this.handleNewDepartures = this.handleNewDepartures.bind(this);
     this.fetchdepartures();
+  }
+
+  componentWillMount() {
+    setInterval(this.fetchdepartures, 100000);
   }
 
   fetchdepartures() {
@@ -24,26 +27,12 @@ export default class App extends React.Component {
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012280") //sognsvann
     fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3011450") //brynseng
         .then((res) => res.json())
-        .then((body) => body.map((departure) => mapdeparture(departure)))
-        .then((departures) => this.assignDepartures(departures));
+        .then((body) => body.map((departure) => mapDeparture(departure)))
+        .then((departures) => this.handleNewDepartures(departures));
   }
 
-  assignDepartures(departures) {
-    const uniqueDirections = [];
-    departures.forEach((departure) => {
-        uniqueDirections[departure.platformName] = true;
-    });
-    departures.forEach((departure) => departure.direction = mapDirection(departure.platformName, Object.keys(uniqueDirections).length));
-    this.addDeparturesToState(departures);
-  }
-
-  addDeparturesToState(departures) {
-    const firstDirection = departures[0].direction;
-    const secondDirection = departures.find((departure) => departure.direction !== firstDirection).direction;
-    const directions = [];
-    directions.push({directionName: firstDirection, departures: departures.filter((departure) => departure.direction === firstDirection)});
-    directions.push({directionName: secondDirection, departures: departures.filter((departure) => departure.direction === secondDirection)});
-    console.log(directions);
+  handleNewDepartures(departures) {
+    const directions = splitInDirections(assignDirection(departures));
     this.setState({directions});
   }
 
@@ -63,13 +52,32 @@ const makeCardList = (departures) => {
   )}</ul>;
 };
 
-const mapdeparture = (departure) => {
+const mapDeparture = (departure) => {
   return {
     platformName: departure.MonitoredVehicleJourney.MonitoredCall.DeparturePlatformName,
     line: departure.MonitoredVehicleJourney.PublishedLineName,
     destination: departure.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay,
-    departureTime: moment(departure.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime),
+    aimedDepartureTime: moment(departure.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime),
+    expectedDepartureTime: moment(departure.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime),
   };
+};
+
+const splitInDirections = (departures) => {
+  const firstDirection = departures[0].direction;
+  const secondDirection = departures.find((departure) => departure.direction !== firstDirection).direction;
+  const directions = [];
+  directions.push({directionName: firstDirection, departures: departures.filter((departure) => departure.direction === firstDirection)});
+  directions.push({directionName: secondDirection, departures: departures.filter((departure) => departure.direction === secondDirection)});
+  return directions;
+};
+
+const assignDirection = (departures) => {
+  const uniqueDirections = [];
+  departures.forEach((departure) => {
+    uniqueDirections[departure.platformName] = true;
+  });
+  departures.forEach((departure) => departure.direction = mapDirection(departure.platformName, Object.keys(uniqueDirections).length));
+  return departures;
 };
 
 const mapDirection = (platformName, uniqueDirections) => {

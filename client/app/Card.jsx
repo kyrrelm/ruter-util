@@ -9,18 +9,13 @@ class Card extends React.Component {
 
   render() {
     const departure = this.props.departure;
-    
-    const diff = departure.departureTime.diff(moment(), 'seconds');
-    let displayTime = departure.departureTime.fromNow();
-    if(30 >= diff && diff >= -30){
-      displayTime = 'now';
-    }
-
+    //const delay = departure.expectedDepartureTime.to(departure.aimedDepartureTime, true);
+    const expectedTime = formatTime(departure.expectedDepartureTime);
     return (
       <li className = "card">
         <div className = "card-content">
           <h2>{departure.line + ' ' + departure.destination}</h2>
-          <p>{displayTime}</p>
+          <p>{expectedTime}</p>
         </div>
       </li>
     )
@@ -32,3 +27,13 @@ Card.propsTypes = {
 };
 
 export default Card;
+
+const formatTime = (time) => {
+  const diff = time.diff(moment(), 'seconds');
+  let displayTime = time.fromNow();
+  if(30 >= diff && diff >= -30){
+    displayTime = 'now';
+  }
+  return displayTime;
+};
+
