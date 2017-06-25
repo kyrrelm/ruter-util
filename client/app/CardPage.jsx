@@ -11,26 +11,29 @@ export default class CardPage extends React.Component {
     };
     this.fetchdepartures = this.fetchdepartures.bind(this);
     this.handleNewDepartures = this.handleNewDepartures.bind(this);
-    this.fetchdepartures();
   }
 
   componentWillMount() {
     console.log("MATCH", this.props.match);
     console.log("query", queryString.parse(location.search));
-    setInterval(this.fetchdepartures, 10000000);
+    const stopId = this.props.match.params.stopId;
+    console.log(stopId);
+    this.fetchdepartures(stopId);
+    setInterval(() => this.fetchdepartures(stopId), 10000000);
   }
 
-  fetchdepartures() {
+  fetchdepartures(stopId) {
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3011450?datetime=2017-06-18T15:00")
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/2190120") //ringstabekk
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012120") //storo
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010600") //tøyen
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010020") //stortinget
-    fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010200") //majorstuen
+    //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010200") //majorstuen
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012280") //sognsvann
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010012") //jernbanetorget (B.Gunnerus g.)
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012500") //skøyen tog
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3011450") //brynseng
+    fetch(`http://reisapi.ruter.no/StopVisit/GetDepartures/${stopId}`)
         .then((res) => res.json())
         .then((body) => body.map((departure) => mapDeparture(departure)))
         .then((departures) => this.handleNewDepartures(departures));
