@@ -1,17 +1,24 @@
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const path = require("path");
 
 const config = require('./webpack.config');
 
-
 const port = 8080;
 const ip = '0.0.0.0';
-new WebpackDevServer(webpack(config), {
+
+const server = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   historyApiFallback: true,
   hot: true,
   inline: true
-}).listen(port, ip, function (err) {
+});
+
+server.use('/', function(req, res) {
+  res.sendFile(path.join(__dirname+'/index.html'));
+});
+
+server.listen(port, ip, function (err) {
   if(err) {
     return console.log(err);
   }

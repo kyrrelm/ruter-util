@@ -3,17 +3,23 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './client/index.html',
+  template: './index.html',
   filename: 'index.html',
   inject: 'body'
 });
 
 
 module.exports = {
-  entry: './client/index.js',
+
+  context: path.join(__dirname, 'client'),
+  entry: {
+    javascript: './index.js',
+    html: './index.html'
+  },
   output: {
-    path: path.resolve('dist'),
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
 
   module: {
@@ -29,6 +35,10 @@ module.exports = {
         }
       }
     ]
+  },
+
+  devServer: {
+    historyApiFallback: true
   },
 
   plugins: [
