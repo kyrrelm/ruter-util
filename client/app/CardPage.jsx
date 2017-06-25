@@ -15,6 +15,7 @@ export default class CardPage extends React.Component {
   }
 
   componentWillMount() {
+    console.log("MATCH", this.props.match);
     console.log("query", queryString.parse(location.search));
     setInterval(this.fetchdepartures, 10000000);
   }
@@ -25,9 +26,9 @@ export default class CardPage extends React.Component {
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012120") //storo
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010600") //tøyen
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010020") //stortinget
-    //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010200") //majorstuen
+    fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010200") //majorstuen
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012280") //sognsvann
-    fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010012") //jernbanetorget (B.Gunnerus g.)
+    //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3010012") //jernbanetorget (B.Gunnerus g.)
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3012500") //skøyen tog
     //fetch("http://reisapi.ruter.no/StopVisit/GetDepartures/3011450") //brynseng
         .then((res) => res.json())

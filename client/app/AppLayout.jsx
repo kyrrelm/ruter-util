@@ -9,7 +9,7 @@ export default class AppLayout extends React.Component {
       <div className="container">
         <div className="content">
           <Switch>
-            <Route exact path="/cards" component={CardPage}/>
+            <Route exact path="/:stopId" component={CardPage}/>
             <Route exact path="/help" component={Help} />
             <Redirect from="/" to="/help"/>
           </Switch>
