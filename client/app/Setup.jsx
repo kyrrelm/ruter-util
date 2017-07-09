@@ -1,7 +1,8 @@
 import React from 'react';
 import StopCard from './StopCard.jsx';
+import 'whatwg-fetch'
 
-export default class Help extends React.Component {
+export default class Setup extends React.Component {
 
   constructor() {
     super();
@@ -13,7 +14,7 @@ export default class Help extends React.Component {
   }
 
   fetchStops() {
-    fetch("http://reisapi.ruter.no/Place/GetStopsRuter")
+    fetch('https://reisapi.ruter.no/Place/GetStopsRuter')
         .then((res) => res.json())
         .then((body) => body.map((stop) => mapStop(stop)))
         .then((stops) => this.setState({stops}));
@@ -22,7 +23,7 @@ export default class Help extends React.Component {
   render() {
     const stopCards = this.state.stops.map((stop) => <StopCard stop={stop}/>);
     return (
-        <div className="help">
+        <div className="setup">
           <div className="card-list">
             <div className="card-list-column">
               <input id="email" type="email"/>
