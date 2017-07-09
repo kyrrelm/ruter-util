@@ -4,7 +4,7 @@ import  moment from 'moment';
 import queryString from 'query-string';
 import 'whatwg-fetch'
 
-export default class CardPage extends React.Component {
+export default class DeparturePage extends React.Component {
   constructor() {
     super();
     this.state = {
