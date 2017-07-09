@@ -6,7 +6,7 @@ import AppLayout from './AppLayout.jsx';
 export default class App extends React.Component {
   render() {
     return (
-      <HashRouter>
+      <HashRouter basename="/nextDep">
         <Route path="/" component={AppLayout}/>
       </HashRouter>
     );
