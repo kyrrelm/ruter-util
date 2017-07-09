@@ -1,8 +1,8 @@
 import React from 'react';
-import StopCard from './StopCard.jsx';
+import StopCard from '../card/StopCard.jsx';
 import 'whatwg-fetch'
 
-export default class Setup extends React.Component {
+export default class SetupPage extends React.Component {
 
   constructor() {
     super();

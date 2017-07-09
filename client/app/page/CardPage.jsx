@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card.jsx';
+import DepartureCard from '../card/DepartureCard.jsx';
 import  moment from 'moment';
 import queryString from 'query-string';
 import 'whatwg-fetch'
@@ -47,7 +47,7 @@ export default class CardPage extends React.Component {
 
 const makeCardList = (departures) => {
   return <ul>{departures.map(departure =>
-      <Card key={departure.departureTime} departure={departure}/>
+      <DepartureCard key={departure.departureTime} departure={departure}/>
   )}</ul>;
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect, Switch} from 'react-router-dom';
-import CardPage from './CardPage.jsx';
-import Setup from './Setup.jsx';
+import CardPage from './page/CardPage.jsx';
+import SetupPage from './page/SetupPage.jsx';
 
 export default class AppLayout extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class AppLayout extends React.Component {
         <div className="content">
           <Switch>
             <Route path="/stop/:stopId" component={CardPage}/>
-            <Route exact path="/setup" component={Setup} />
+            <Route exact path="/setup" component={SetupPage} />
             <Redirect from="/" to="/setup"/>
           </Switch>
         </div>

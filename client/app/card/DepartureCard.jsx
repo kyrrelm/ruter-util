@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-class Card extends React.Component {
+class DepartureCard extends React.Component {
   componentDidMount() {
     this.updateTime = setInterval(() => this.forceUpdate() , 1000);
   }
@@ -28,11 +28,11 @@ class Card extends React.Component {
   }
 }
 
-Card.propsTypes = {
+DepartureCard.propsTypes = {
   avgang: PropTypes.object.isRequired,
 };
 
-export default Card;
+export default DepartureCard;
 
 const formatTime = (time) => {
   const diff = time.diff(moment(), 'seconds');
