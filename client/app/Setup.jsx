@@ -33,7 +33,12 @@ export default class Setup extends React.Component {
         <div className="setup">
           <div className="card-list">
             <div className="card-list-column">
-              <input type="text" value={this.state.searchWord} onChange={(e) => this.setState({searchWord: e.target.value})}/>
+              <input
+                  type="text"
+                  className="search-input"
+                  placeholder="Søk..."
+                  value={this.state.searchWord}
+                  onChange={(e) => this.setState({searchWord: e.target.value})}/>
               <ul>
                 {stopCards}
               </ul>

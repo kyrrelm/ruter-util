@@ -15,6 +15,10 @@ body {
     color: #c6c8ca;
 }
 
+input, select, textarea{
+    color: #c6c8ca;
+}
+
 ul {
     margin: 0;
 }
@@ -58,6 +62,7 @@ ul {
     background-color: #4b4b4b;
     margin-bottom: 5px;
     max-height: 150px;
+    cursor: pointer;
 }
 
 .card-collapse {
@@ -81,4 +86,17 @@ ul {
     text-indent: 5px;
 }
 
+.search-input {
+    background-color: transparent;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 100%;
+    align-self: center;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    font-size: 200%;
+    outline: none;
+    font-style: italic;
+    text-decoration-color: #c6c8ca;
+}
 
