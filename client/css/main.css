@@ -70,8 +70,7 @@ ul {
     overflow: hidden;
     margin-bottom: 0;
     transition: max-height 1000ms ease-in, margin-bottom 200ms 1000ms;
-    /*-webkit-transition: height 3000ms 3000ms ease-in;*/
-    /*-webkit-transition: margin-bottom 3000ms 0ms;*/
+    -webkit-transition: max-height 1000ms ease-in, margin-bottom 200ms 1000ms;
 }
 
 .card .card-content {
