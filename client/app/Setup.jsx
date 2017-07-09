@@ -28,7 +28,7 @@ export default class Setup extends React.Component {
   }
 
   render() {
-    const stopCards = this.state.stops.filter(this.containsSearchWord).slice(0, 50).map((stop) => <StopCard stop={stop}/>);
+    const stopCards = this.state.stops.filter(this.containsSearchWord).slice(0, 50).map((stop) => <StopCard stop={stop} history={this.props.history}/>);
     return (
         <div className="setup">
           <div className="card-list">
