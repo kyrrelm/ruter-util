@@ -7,9 +7,11 @@ export default class Setup extends React.Component {
   constructor() {
     super();
     this.fetchStops = this.fetchStops.bind(this);
+    this.containsSearchWord= this.containsSearchWord.bind(this);
     this.fetchStops();
     this.state = {
-      stops: []
+      stops: [],
+      searchWord: ''
     }
   }
 
@@ -20,13 +22,18 @@ export default class Setup extends React.Component {
         .then((stops) => this.setState({stops}));
   }
 
+  containsSearchWord(stop) {
+    if(this.state.searchWord === '') return true;
+    return stop.name.toLowerCase().includes(this.state.searchWord.toLowerCase());
+  }
+
   render() {
-    const stopCards = this.state.stops.map((stop) => <StopCard stop={stop}/>);
+    const stopCards = this.state.stops.filter(this.containsSearchWord).slice(0, 50).map((stop) => <StopCard stop={stop}/>);
     return (
         <div className="setup">
           <div className="card-list">
             <div className="card-list-column">
-              <input id="email" type="email"/>
+              <input type="text" value={this.state.searchWord} onChange={(e) => this.setState({searchWord: e.target.value})}/>
               <ul>
                 {stopCards}
               </ul>
