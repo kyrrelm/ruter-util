@@ -15,7 +15,7 @@ class DepartureCard extends React.Component {
     const departure = this.props.departure;
     //const delay = departure.expectedDepartureTime.to(departure.aimedDepartureTime, true);
     const expectedTime = formatTime(departure.expectedDepartureTime);
-    const shouldCollapse = !(departure.expectedDepartureTime.diff(moment()) > -60000);
+    const shouldCollapse = !(departure.expectedDepartureTime.diff(moment()) > -this.props.lingerTime);
     const classSelected = shouldCollapse ? 'card card-collapse' : 'card';
     return (
         <li className = {classSelected}>
@@ -30,6 +30,7 @@ class DepartureCard extends React.Component {
 
 DepartureCard.propsTypes = {
   avgang: PropTypes.object.isRequired,
+  lingerTime: PropTypes.number.isRequired,
 };
 
 export default DepartureCard;

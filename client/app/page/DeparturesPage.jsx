@@ -1,8 +1,10 @@
 import React from 'react';
 import DepartureCard from '../card/DepartureCard.jsx';
 import  moment from 'moment';
-import queryString from 'query-string';
 import 'whatwg-fetch'
+
+const LINGER_TIME = 60000;
+const REFRESH_RATE = 60000;
 
 export default class DeparturePage extends React.Component {
   constructor() {
@@ -12,15 +14,13 @@ export default class DeparturePage extends React.Component {
     };
     this.fetchdepartures = this.fetchdepartures.bind(this);
     this.handleNewDepartures = this.handleNewDepartures.bind(this);
+    this.updateDepartures = this.updateDepartures.bind(this);
   }
 
   componentWillMount() {
-    console.log("MATCH", this.props.match);
-    console.log("query", queryString.parse(location.search));
     const stopId = this.props.match.params.stopId;
-    console.log(stopId);
     this.fetchdepartures(stopId);
-    setInterval(() => this.fetchdepartures(stopId), 10000000);
+    setInterval(() => this.fetchdepartures(stopId), REFRESH_RATE);
   }
 
   fetchdepartures(stopId) {
@@ -31,8 +31,18 @@ export default class DeparturePage extends React.Component {
   }
 
   handleNewDepartures(departures) {
-    const directions = splitInDirections(assignDirection(departures));
+    const updatedDepartures = this.updateDepartures(departures);
+    const directions = splitInDirections(assignDirection(updatedDepartures));
     this.setState({directions});
+  }
+
+  updateDepartures(departures) {
+    const oldDirections = this.state.directions;
+    let lingeringDepartures = [];
+    Object.keys(oldDirections).forEach((key) => {
+      lingeringDepartures = lingeringDepartures.concat(oldDirections[key].departures.filter(shouldDepartureLinger));
+    });
+    return lingeringDepartures.concat(departures);
   }
 
   render() {
@@ -47,7 +57,7 @@ export default class DeparturePage extends React.Component {
 
 const makeCardList = (departures) => {
   return <ul>{departures.map(departure =>
-      <DepartureCard key={departure.departureTime} departure={departure}/>
+      <DepartureCard key={departure.departureTime} departure={departure} lingerTime={LINGER_TIME}/>
   )}</ul>;
 };
 
@@ -59,6 +69,11 @@ const mapDeparture = (departure) => {
     aimedDepartureTime: moment(departure.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime),
     expectedDepartureTime: moment(departure.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime),
   };
+};
+
+const shouldDepartureLinger = (departure) => {
+  const depTime = departure.expectedDepartureTime;
+  return (depTime.diff(moment()) > -LINGER_TIME-30000) && (depTime.diff(moment()) < 0);
 };
 
 const splitInDirections = (departures) => {
