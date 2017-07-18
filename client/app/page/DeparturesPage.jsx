@@ -5,7 +5,6 @@ import 'whatwg-fetch'
 
 const LINGER_TIME = 60000;
 const REFRESH_RATE = 60000;
-let ID = 0;
 
 export default class DeparturePage extends React.Component {
   constructor() {
@@ -47,7 +46,7 @@ export default class DeparturePage extends React.Component {
   }
 
   render() {
-    const columns = this.state.directions.map((direction) => <div className="card-list-column" key={ID++}><h2>{direction.directionName}</h2>{makeCardList(direction.departures)}</div>);
+    const columns = this.state.directions.map((direction) => <div className="card-list-column" key={direction.directionName}><h2>{direction.directionName}</h2>{makeCardList(direction.departures)}</div>);
     return (
       <div className="card-list">
         {columns}
@@ -57,12 +56,13 @@ export default class DeparturePage extends React.Component {
 }
 
 const makeCardList = (departures) => {
-  const departureCards = departures.map(departure => <DepartureCard key={ID++} departure={departure} lingerTime={LINGER_TIME}/>);
-  return <ul key={ID++}>{departureCards}</ul>;
+  const departureCards = departures.map(departure => <DepartureCard key={departure.id} departure={departure} lingerTime={LINGER_TIME}/>);
+  return <ul>{departureCards}</ul>;
 };
 
 const mapDeparture = (departure) => {
   return {
+    id: departure.MonitoredVehicleJourney.VehicleJourneyName,
     platformName: departure.MonitoredVehicleJourney.MonitoredCall.DeparturePlatformName,
     line: departure.MonitoredVehicleJourney.PublishedLineName,
     destination: departure.MonitoredVehicleJourney.DestinationName,//MonitoredCall.DestinationDisplay,
