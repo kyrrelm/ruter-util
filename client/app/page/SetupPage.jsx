@@ -2,6 +2,8 @@ import React from 'react';
 import StopCard from '../card/StopCard.jsx';
 import 'whatwg-fetch'
 
+let ID = 0;
+
 export default class SetupPage extends React.Component {
 
   constructor() {
@@ -28,7 +30,7 @@ export default class SetupPage extends React.Component {
   }
 
   render() {
-    const stopCards = this.state.stops.filter(this.containsSearchWord).slice(0, 50).map((stop) => <StopCard stop={stop} history={this.props.history}/>);
+    const stopCards = this.state.stops.filter(this.containsSearchWord).slice(0, 50).map((stop) => <StopCard key={ID++} stop={stop} history={this.props.history}/>);
     return (
         <div className="setup">
           <div className="card-list">

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const StopCard = ({stop, history}) => {
-
   return (
       <li className = "card" onClick={() => history.push(`/stop/${stop.id}`)}>
         <div className = "card-content">
