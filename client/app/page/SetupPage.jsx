@@ -19,9 +19,15 @@ export default class SetupPage extends React.Component {
 
   fetchStops() {
     fetch('https://reisapi.ruter.no/Place/GetStopsRuter')
-        .then((res) => res.json())
-        .then((body) => body.map((stop) => mapStop(stop)))
-        .then((stops) => this.setState({stops}));
+      .then((res) => {
+        if (res.ok) {
+          res.json()
+              .then((body) => body.map((stop) => mapStop(stop)))
+              .then((stops) => this.setState({stops}));
+        } else {
+          console.error("Noe gikk galt", res.error());
+        }
+      });
   }
 
   containsSearchWord(stop) {

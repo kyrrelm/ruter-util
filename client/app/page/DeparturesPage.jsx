@@ -12,22 +12,28 @@ export default class DeparturePage extends React.Component {
     this.state = {
       directions: [],
     };
-    this.fetchdepartures = this.fetchdepartures.bind(this);
+    this.fetchDepartures = this.fetchDepartures.bind(this);
     this.handleNewDepartures = this.handleNewDepartures.bind(this);
     this.updateDepartures = this.updateDepartures.bind(this);
   }
 
   componentWillMount() {
     const stopId = this.props.match.params.stopId;
-    this.fetchdepartures(stopId);
-    setInterval(() => this.fetchdepartures(stopId), REFRESH_RATE);
+    this.fetchDepartures(stopId);
+    setInterval(() => this.fetchDepartures(stopId), REFRESH_RATE);
   }
 
-  fetchdepartures(stopId) {
+  fetchDepartures(stopId) {
     fetch(`https://reisapi.ruter.no/StopVisit/GetDepartures/${stopId}`)
-        .then((res) => res.json())
-        .then((body) => body.map((departure) => mapDeparture(departure)))
-        .then((departures) => this.handleNewDepartures(departures));
+        .then((res) => {
+          if(res.ok) {
+            res.json()
+                .then((body) => body.map((departure) => mapDeparture(departure)))
+                .then((departures) => this.handleNewDepartures(departures));
+          } else {
+            console.error("Noe gikk galt", res.error())
+          }
+        });
   }
 
   handleNewDepartures(departures) {
