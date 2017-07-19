@@ -4,7 +4,7 @@ import moment from 'moment';
 
 class DepartureCard extends React.Component {
   componentDidMount() {
-    this.updateTime = setInterval(() => this.forceUpdate() , 1000);
+    //this.updateTime = setInterval(() => this.forceUpdate() , 10000);
   }
 
   componentWillUnmount() {
@@ -12,6 +12,7 @@ class DepartureCard extends React.Component {
   }
 
   render() {
+    console.log("trying to render card");
     const departure = this.props.departure;
     //const delay = departure.expectedDepartureTime.to(departure.aimedDepartureTime, true);
     const expectedTime = formatTime(departure.expectedDepartureTime);

@@ -2,8 +2,6 @@ import React from 'react';
 import StopCard from '../card/StopCard.jsx';
 import 'whatwg-fetch'
 
-let ID = 0;
-
 export default class SetupPage extends React.Component {
 
   constructor() {
@@ -18,7 +16,9 @@ export default class SetupPage extends React.Component {
   }
 
   fetchStops() {
-    fetch('https://reisapi.ruter.no/Place/GetStopsRuter')
+    const headers = new Headers();
+    headers.append('Accept', 'application/json');
+    fetch('https://reisapi.ruter.no/Place/GetStopsRuter', {headers})
       .then((res) => {
         if (res.ok) {
           res.json()
@@ -36,7 +36,7 @@ export default class SetupPage extends React.Component {
   }
 
   render() {
-    const stopCards = this.state.stops.filter(this.containsSearchWord).slice(0, 50).map((stop) => <StopCard key={ID++} stop={stop} history={this.props.history}/>);
+    const stopCards = this.state.stops.filter(this.containsSearchWord).slice(0, 50).map((stop) => <StopCard key={stop.id} stop={stop} history={this.props.history}/>);
     return (
         <div className="setup">
           <div className="card-list">
@@ -46,7 +46,7 @@ export default class SetupPage extends React.Component {
                   className="search-input"
                   placeholder="Søk..."
                   value={this.state.searchWord}
-                  onChange={(e) => this.setState({searchWord: e.target.value})}/>
+                  onInput={(e) => this.setState({searchWord: e.target.value})}/>
               <ul>
                 {stopCards}
               </ul>
