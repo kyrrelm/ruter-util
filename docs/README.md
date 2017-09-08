@@ -8,7 +8,7 @@ Dette er en samling av lenker til fagresurser som faggruppen i webarkitektur fin
 
 [Domain Modeling Made Functional](https://www.youtube.com/watch?v=Up7LcbGZFuo)
 
-[Scott Wlaschin](https://vimeo.com/97344498)
+[Scott Wlaschin - Railway Oriented Programming](https://vimeo.com/97344498)
 
 ##### Lyst til å legge til noe?
 
