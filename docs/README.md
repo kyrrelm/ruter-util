@@ -10,6 +10,4 @@ Dette er en samling av lenker til fagresurser som faggruppen i webarkitektur fin
 
 [Scott Wlaschin - Railway Oriented Programming](https://vimeo.com/97344498)
 
-##### Lyst til å legge til noe?
-Opprett en pull request på denne [filen.](https://github.com/bekk/webarkitektur/blob/master/docs/README.md)
 
