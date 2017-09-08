@@ -1,4 +1,4 @@
-## Webarkitekturs nyttige lenker
+# Webarkitekturs nyttige lenker
 
 Dette er en samling av lenker til fagresurser som faggruppen i webarkitektur finner nyttig.
 
